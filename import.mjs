@@ -52,19 +52,33 @@ function hashContent(content) {
 }
 
 /**
- * Parse Liquid file for Shopify doc tag (e.g., @snippet name)
+ * Parse Liquid file for Shopify doc tag (supports {% doc %} and {% comment %})
+ * Logs a warning if legacy {% comment %} is used
  */
-function parseLiquidTag(content) {
-  const match = content.match(/{%\s*comment\s*%}([\s\S]*?){%\s*endcomment\s*%}/);
+function parseLiquidTag(content, relPath, pkgName) {
+  // Try {% doc %} block first
+  let match = content.match(/{%\s*doc\s*%}([\s\S]*?){%\s*enddoc\s*%}/);
+  let legacyUsed = false;
+
+  // Fallback to {% comment %} block if no {% doc %} found
+  if (!match) {
+    match = content.match(/{%\s*comment\s*%}([\s\S]*?){%\s*endcomment\s*%}/);
+    if (match) legacyUsed = true;
+  }
+
   if (!match) return null;
 
   const lines = match[1].split('\n');
   for (const line of lines) {
     const tagMatch = line.trim().match(/^@(\w+)\s+([\w-]+)/);
     if (tagMatch) {
+      if (legacyUsed) {
+        console.log(chalk.yellow(`⚠️  Legacy tag used in ${pkgName}/${relPath} — consider switching to {% doc %}`));
+      }
       return { type: tagMatch[1], name: tagMatch[2] };
     }
   }
+
   return null;
 }
 
@@ -84,7 +98,7 @@ async function importFile(pkgName, filePath, relPath) {
 
   let destFolder = null;
   if (ext === '.liquid') {
-    const tag = parseLiquidTag(content);
+    const tag = parseLiquidTag(content, relPath, pkgName);
     if (tag && LIQUID_MAP[tag.type]) {
       destFolder = LIQUID_MAP[tag.type];
     }
