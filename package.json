@@ -1,22 +1,23 @@
 {
-  "name": "my-shopify-theme",
+  "name": "@cam/shopify-theme-tools",
   "version": "1.0.0",
+  "description": "CLI and importer for syncing NPM packages into Shopify themes",
+  "bin": {
+    "theme-tools": "./bin/cli.js"
+  },
   "type": "module",
   "scripts": {
-    "import": "node import.mjs",
-    "import:clear": "node import.mjs --clear",
+    "import": "node lib/import.mjs",
+    "import:clear": "node lib/import.mjs --clear",
     "import:help": "echo \"Usage:\\n  npm run import         → Import updated files\\n  npm run import:clear   → Clear cache and re-import all\\n  npm run import:help    → Show this help message\""
   },
-  "devDependencies": {
-    "chalk": "^5.3.0",
-    "fs-extra": "^11.1.1"
-  },
-  "themeImport": {
-    "packages": {
-      "@cam/menu": ["style.css"]
-    }
-  },
+  "files": [
+    "bin/",
+    "lib/",
+    "index.js"
+  ],
   "dependencies": {
-    "@cam/menu": "^0.1.0"
+    "chalk": "^5.3.0",
+    "fs-extra": "^11.2.0"
   }
 }
