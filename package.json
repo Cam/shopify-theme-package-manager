@@ -1,7 +1,11 @@
 {
   "name": "@cam/shopify-theme-tools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI and importer for syncing NPM packages into Shopify themes",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cam/shopify-theme-tools.git"
+  },
   "bin": {
     "theme-tools": "./bin/cli.js"
   },
@@ -9,7 +13,10 @@
   "scripts": {
     "import": "node lib/import.mjs",
     "import:clear": "node lib/import.mjs --clear",
-    "import:help": "echo \"Usage:\\n  npm run import         → Import updated files\\n  npm run import:clear   → Clear cache and re-import all\\n  npm run import:help    → Show this help message\""
+    "import:help": "echo \"Usage:\\n  npm run import         → Import updated files\\n  npm run import:clear   → Clear cache and re-import all\\n  npm run import:help    → Show this help message\"",
+    "version:patch": "npm version patch && git push && git push --tags",
+    "version:minor": "npm version minor && git push && git push --tags",
+    "version:major": "npm version major && git push && git push --tags"
   },
   "files": [
     "bin/",
