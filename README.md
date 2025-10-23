@@ -1,102 +1,111 @@
-# Shopify Theme Importer
+# 🛠️ Shopify Theme Tools
 
-Automatically imports supported files from installed NPM packages into your Shopify theme folders. Designed to streamline theme development by syncing assets and Liquid components from shared packages.
-
----
-
-## Features
-
-- Imports from all packages listed in `"dependencies"` (ignores `"devDependencies"`)
-- Supports `.liquid`, `.js`, `.css`, `.svg`, `.png`, `.jpg`, `.json`
-- Routes `.liquid` files based on doc tags (`@snippet`, `@section`, etc.)
-- Copies all other files to `assets/`
-- Skips unchanged files and packages using smart caching
-- Excludes registry-specific files like `package.json`, `README.md`, etc.
-- Supports cache clearing and usage help
+A CLI utility and importer for syncing files from NPM packages into your Shopify theme folders. Designed to support modular theme development using reusable snippets, sections, templates, and assets.
 
 ---
 
-## Folder Structure
+## 🚀 Features
 
-Imported files are routed to:
-
-theme/
-├── assets/          ← js, css, images, json  
-├── snippets/        ← liquid files with @snippet tag  
-├── sections/        ← liquid files with @section tag  
-├── templates/       ← liquid files with @template tag  
-├── layout/          ← liquid files with @layout tag  
-
-Cache is stored in:
-
-.theme-import/
-├── cache.json       ← file hashes  
-└── packages.json    ← package timestamps  
+- Imports `.liquid`, `.js`, `.css`, `.svg`, `.png`, `.jpg`, `.json` from installed packages
+- Routes `.liquid` files based on `{% doc %}` tags (`@snippet`, `@section`, etc.)
+- Copies other files to `assets/`
+- Skips unchanged files using smart caching
+- CLI wrapper for easy setup in any theme project
 
 ---
 
-## Setup
+## 📦 Installation
 
-1. Clone the repository:
+From your Shopify theme folder:
 
-```
-git clone https://github.com/cam/shopify-theme-builder.git
-cd shopify-theme-builder
+```bash
+npm install @cam/shopify-theme-tools
+npx theme-tools
 ```
 
-2. Install dependencies:
-
-```
-npm install
-```
+This will:
+- Copy `import.mjs` to your project root
+- Add import scripts to your `package.json`
+- Create `.theme-import/` cache folder (if needed)
 
 ---
 
-## Usage
+## 🛠 Usage
 
 Import updated files:
-```
+```bash
 npm run import
 ```
 
 Clear cache and re-import everything:
-```
+```bash
 npm run import:clear
 ```
 
 Show usage instructions:
-```
+```bash
 npm run import:help
 ```
 
 ---
 
-## Pacakage management
+## 🏷️ Liquid Tag Format
 
-You can create and add your own packages to the registry.
+To route `.liquid` files correctly, include a `{% doc %}` block at the top:
 
-### Liquid Tag Format
-
-Liquid files use JSDoc-like formatting to specify additional details.
-
-To route `.liquid` files correctly, include a Liquid doc block like:
 ```
 {% doc %}
-@snippet snippet-name
+@snippet menu
 {% enddoc %}
 ```
 
-In the above example this file would be routed to the /snippets folder of the theme.
+Supported tags:
+- `@snippet name`
+- `@section name`
+- `@template name`
+- `@layout name`
 
 ---
 
-## Cache Management
+## 📁 Folder Structure
 
-- File-level cache: skips unchanged files using SHA-1 hashes
-- Package-level cache: skips packages that haven’t changed since last import
+Imported files are routed to:
+
+```
+theme/
+├── assets/          ← js, css, images, json
+├── snippets/        ← liquid files with @snippet tag
+├── sections/        ← liquid files with @section tag
+├── templates/       ← liquid files with @template tag
+├── layout/          ← liquid files with @layout tag
+```
+
+Cache is stored in:
+
+```
+.theme-import/
+├── cache.json       ← file hashes
+└── packages.json    ← package timestamps
+```
 
 ---
 
-## Tip
+## 🧪 Compatible Packages
 
-Use `npm run import:clear` after updating packages to ensure all new files are synced.
+To create packages that work with this importer, follow the [Theme-Compatible Package Authoring Spec](https://github.com/your-org/shopify-theme-tools/blob/main/PACKAGE_AUTHORING.md).
+
+---
+
+## 🧠 Why This Tool?
+
+This utility makes it easy to:
+- Reuse components across multiple themes
+- Keep your base theme clean and modular
+- Avoid manual copying and duplication
+- Build a scalable ecosystem of theme packages
+
+---
+
+## 🧹 License
+
+MIT
