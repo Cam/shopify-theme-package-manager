@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 
-import { execSync } from 'child_process';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import fs from 'fs';
 
-const args = process.argv.slice(2);
 const root = process.cwd();
 const importerPath = path.join(root, 'import.mjs');
 
 // If importer doesn't exist, copy it from the package
 if (!fs.existsSync(importerPath)) {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+
   const source = path.join(__dirname, '../lib/import.mjs');
   fs.copyFileSync(source, importerPath);
   console.log('✅ import.mjs added to project root');

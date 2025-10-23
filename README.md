@@ -19,7 +19,7 @@ A CLI utility and importer for syncing files from NPM packages into your Shopify
 From your Shopify theme folder:
 
 ```bash
-npm install @cam/shopify-theme-tools
+npm install --save-dev @cam/shopify-theme-tools
 npx theme-tools
 ```
 
