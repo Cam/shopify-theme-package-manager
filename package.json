@@ -1,6 +1,6 @@
 {
   "name": "@cam/shopify-theme-tools",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "CLI and importer for syncing NPM packages into Shopify themes",
   "repository": {
     "type": "git",
