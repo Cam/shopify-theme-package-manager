@@ -1,0 +1,18 @@
+# Dev tools
+dev-link.sh
+test/
+scripts/
+*.log
+
+# Configs
+.npmrc
+.env
+.env.local
+
+# Git metadata
+.git
+.gitignore
+
+# System
+.DS_Store
+Thumbs.db

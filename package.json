@@ -11,7 +11,7 @@
   },
   "type": "module",
   "main": "bin/cli.js",
-  "files": ["bin", "lib", "README.md"],
+  "files": ["bin", "lib", "commands", "README.md"],
   "keywords": ["shopify", "theme", "cli", "package manager"],
   "license": "MIT",
   "publishConfig": {
