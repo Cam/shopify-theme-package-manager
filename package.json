@@ -1,5 +1,5 @@
 {
-  "name": "@cam/stpm",
+  "name": "@Cam/stpm",
   "version": "1.0.0",
   "description": "CLI and importer for syncing NPM packages into Shopify themes",
   "repository": {
