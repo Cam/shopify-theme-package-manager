@@ -23,11 +23,6 @@ npm install --save-dev @cam/shopify-theme-tools
 npx theme-tools
 ```
 
-This will:
-- Copy `import.mjs` to your project root
-- Add import scripts to your `package.json`
-- Create `.theme-import/` cache folder (if needed)
-
 ---
 
 ## 🛠 Usage

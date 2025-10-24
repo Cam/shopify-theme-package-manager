@@ -1,33 +1,38 @@
 #!/usr/bin/env node
 
-import path from 'path';
-import { fileURLToPath } from 'url';
-import fs from 'fs';
+import { Command } from 'commander';
+import chalk from 'chalk';
 
-const root = process.cwd();
-const importerPath = path.join(root, 'import.mjs');
+import importCommand from '../commands/import.js';
+import cleanCommand from '../commands/clean.js';
+import cleanAllCommand from '../commands/cleanAll.js';
+import bundleCommand from '../commands/bundle.js';
 
-// If importer doesn't exist, copy it from the package
-if (!fs.existsSync(importerPath)) {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
+const program = new Command();
 
-  const source = path.join(__dirname, '../lib/import.mjs');
-  fs.copyFileSync(source, importerPath);
-  console.log('✅ import.mjs added to project root');
-}
+program
+  .name('theme-tools')
+  .description(chalk.cyan('Shopify Theme Tools CLI'))
+  .version('1.0.0');
 
-// Add scripts to package.json
-const pkgPath = path.join(root, 'package.json');
-if (fs.existsSync(pkgPath)) {
-  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-  pkg.scripts ||= {};
-  pkg.scripts.import = 'node import.mjs';
-  pkg.scripts['import:clear'] = 'node import.mjs --clear';
-  pkg.scripts['import:help'] = 'echo "Usage:\\n  npm run import         → Import updated files\\n  npm run import:clear   → Clear cache and re-import all\\n  npm run import:help    → Show this help message"';
-  fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
-  console.log('✅ Scripts added to package.json');
-}
+program
+  .command('import <package>')
+  .description('Import files from a theme package')
+  .action(importCommand);
 
-console.log('\n🎉 Shopify Theme Tools installed!');
-console.log('Run: npm run import');
+program
+  .command('clean <package>')
+  .description('Remove imported files from a package')
+  .action(cleanCommand);
+
+program
+  .command('clean-all')
+  .description('Remove files from all uninstalled packages')
+  .action(cleanAllCommand);
+
+program
+  .command('bundle')
+  .description('Compile global JS/CSS from selected packages')
+  .action(bundleCommand);
+
+program.parse(process.argv);
