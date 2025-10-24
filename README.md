@@ -1,16 +1,19 @@
-# 🛠️ Shopify Theme Tools
+# 🛠️ Shopify Theme Tools (CLI)
 
-A CLI utility and importer for syncing files from NPM packages into your Shopify theme folders. Designed to support modular theme development using reusable snippets, sections, templates, and assets.
+A CLI utility for importing files from NPM packages directly into your Shopify theme folders. Designed for modular theme development using reusable snippets, sections, templates, and assets — with a streamlined, declarative workflow.
 
 ---
 
 ## 🚀 Features
 
+- Installs and imports packages in one step with `theme-tools add`
 - Imports `.liquid`, `.js`, `.css`, `.svg`, `.png`, `.jpg`, `.json` from installed packages
 - Routes `.liquid` files based on `{% doc %}` tags (`@snippet`, `@section`, etc.)
 - Copies other files to `assets/`
 - Skips unchanged files using smart caching
-- CLI wrapper for easy setup in any theme project
+- Tracks imports in `.theme-tools-imports.json`
+- Warns on filename conflicts (e.g. duplicate `style.css`)
+- CLI-first workflow with scoped resolution from your theme folder
 
 ---
 
@@ -19,27 +22,53 @@ A CLI utility and importer for syncing files from NPM packages into your Shopify
 From your Shopify theme folder:
 
 ```bash
-npm install --save-dev @cam/shopify-theme-tools
-npx theme-tools
+npm install @cam/shopify-theme-tools
+```
+
+Then run the CLI directly:
+
+```bash
+npx theme-tools add @cam/menu
 ```
 
 ---
 
-## 🛠 Usage
+## 🛠️ CLI Usage
 
-Import updated files:
+Install and import one or more packages:
+
 ```bash
-npm run import
+theme-tools add @cam/menu @cam/gallery @cam/footer
 ```
 
-Clear cache and re-import everything:
+Re-import files from a package (without reinstalling):
+
 ```bash
-npm run import:clear
+theme-tools import @cam/menu
 ```
 
-Show usage instructions:
+Force re-import (clears cache):
+
 ```bash
-npm run import:help
+theme-tools import --force @cam/menu
+```
+
+Remove imported files from a package:
+
+```bash
+theme-tools clean @cam/menu
+```
+
+Remove all imported files:
+
+```bash
+theme-tools clean-all
+```
+
+Show help:
+
+```bash
+theme-tools --help
 ```
 
 ---
@@ -48,7 +77,7 @@ npm run import:help
 
 To route `.liquid` files correctly, include a `{% doc %}` block at the top:
 
-```
+```liquid
 {% doc %}
 @snippet menu
 {% enddoc %}
@@ -59,6 +88,8 @@ Supported tags:
 - `@section name`
 - `@template name`
 - `@layout name`
+
+If no tag is found, the file will be skipped.
 
 ---
 
@@ -75,13 +106,19 @@ theme/
 ├── layout/          ← liquid files with @layout tag
 ```
 
-Cache is stored in:
+Import tracking is stored in:
 
 ```
-.theme-import/
-├── cache.json       ← file hashes
-└── packages.json    ← package timestamps
+.theme-tools-imports.json
 ```
+
+---
+
+## ⚠️ Filename Conflicts
+
+If two packages include files with the same name (e.g. `style.css`), the second import will overwrite the first. The CLI will warn you when this happens.
+
+> Future enhancement: support for automatic CSS merging or namespacing.
 
 ---
 
@@ -93,11 +130,13 @@ To create packages that work with this importer, follow the [Theme-Compatible Pa
 
 ## 🧠 Why This Tool?
 
-This utility makes it easy to:
+This CLI makes it easy to:
+
 - Reuse components across multiple themes
 - Keep your base theme clean and modular
 - Avoid manual copying and duplication
 - Build a scalable ecosystem of theme packages
+- Automate imports with precision and safety
 
 ---
 

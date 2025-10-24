@@ -3,6 +3,7 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 
+import { addPackage } from '../commands/add.js';
 import importCommand from '../commands/import.js';
 import cleanCommand from '../commands/clean.js';
 import cleanAllCommand from '../commands/cleanAll.js';
@@ -14,6 +15,16 @@ program
   .name('theme-tools')
   .description(chalk.cyan('Shopify Theme Tools CLI'))
   .version('1.0.0');
+
+program
+  .command('add')
+  .argument('<packages...>')
+  .description('Install and import one or more theme-compatible packages')
+  .action(async (packages) => {
+    for (const pkg of packages) {
+      await addPackage(pkg);
+    }
+  });
 
 program
   .command('import <package>')
