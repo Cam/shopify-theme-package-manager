@@ -22,7 +22,7 @@ A CLI utility for importing files from NPM packages directly into your Shopify t
 From your Shopify theme folder:
 
 ```bash
-npm install @cam/shopify-stpm
+npm install @cam/stpm
 ```
 
 Then run the CLI directly:
@@ -124,7 +124,7 @@ If two packages include files with the same name (e.g. `style.css`), the second 
 
 ## 🧪 Compatible Packages
 
-To create packages that work with this importer, follow the [Theme-Compatible Package Authoring Spec](https://github.com/your-org/shopify-stpm/blob/main/PACKAGE_AUTHORING.md).
+To create packages that work with this importer, follow the [Theme-Compatible Package Authoring Spec](https://github.com/cam/stpm/blob/main/PACKAGE_AUTHORING.md) or see the [Starter Package](https://github.com/Cam/starter-package).
 
 ---
 
