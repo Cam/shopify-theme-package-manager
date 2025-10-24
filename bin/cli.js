@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import { addPackage } from '../commands/add.js';
 import importCommand from '../commands/import.js';
-import cleanCommand from '../commands/clean.js';
+import removeCommand from '../commands/remove.js';
 import cleanAllCommand from '../commands/cleanAll.js';
 import bundleCommand from '../commands/bundle.js';
 
@@ -37,9 +37,9 @@ program
   .action(importCommand);
 
 program
-  .command('clean <package>')
-  .description('Remove imported files from a package')
-  .action(cleanCommand);
+  .command('remove <package>')
+  .description('Remove imported files and uninstall the package')
+  .action(removeCommand);
 
 program
   .command('clean-all')

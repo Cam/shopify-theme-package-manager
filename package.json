@@ -11,8 +11,18 @@
   },
   "type": "module",
   "main": "bin/cli.js",
-  "files": ["bin", "lib", "commands", "README.md"],
-  "keywords": ["shopify", "theme", "cli", "package manager"],
+  "files": [
+    "bin",
+    "lib",
+    "commands",
+    "README.md"
+  ],
+  "keywords": [
+    "shopify",
+    "theme",
+    "cli",
+    "package manager"
+  ],
   "license": "MIT",
   "publishConfig": {
     "access": "public",
@@ -21,6 +31,7 @@
   "dependencies": {
     "chalk": "^5.3.0",
     "commander": "^14.0.1",
+    "execa": "^9.6.0",
     "fs-extra": "^11.2.0",
     "resolve": "^1.22.11"
   }

@@ -28,7 +28,7 @@ npm install @cam/stpm
 Then run the CLI directly:
 
 ```bash
-npx stpm add @cam/menu
+npx stpm add some-package
 ```
 
 ---
@@ -38,25 +38,25 @@ npx stpm add @cam/menu
 Install and import one or more packages:
 
 ```bash
-stpm add @cam/menu @cam/gallery @cam/footer
+stpm add some-package some-other-package yet-another-package
 ```
 
 Re-import files from a package (without reinstalling):
 
 ```bash
-stpm import @cam/menu
+stpm import some-package
 ```
 
 Force re-import (clears cache):
 
 ```bash
-stpm import --force @cam/menu
+stpm import --force some-package
 ```
 
-Remove imported files from a package:
+Remove a package and imported files:
 
 ```bash
-stpm clean @cam/menu
+stpm remove some-package
 ```
 
 Remove all imported files:
