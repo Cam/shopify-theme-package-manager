@@ -1,11 +1,11 @@
-## Shopify Theme Tools TODO
+## Shopify Theme Package Manager TODO
 
 ---
 
 #### Optional Enhancements
 - [ ] Add a `--dry-run` flag to preview deletions
 - [ ] Add a `--verbose` flag for detailed logs
-- [ ] Add a `theme-tools status` command to show current imports
+- [ ] Add a `stpm status` command to show current imports
 
 ---
 
@@ -50,5 +50,5 @@ Concatenate `.css` files with the same name during import to avoid overwriting a
 **Future Considerations:**
 
 - Extend support to `.js` or `.json` if needed
-- Add conflict tracking to `.theme-tools-imports.json`
+- Add conflict tracking to `.stpm-imports.json`
 - Allow custom naming or namespacing to avoid collisions

@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import chalk from 'chalk';
-
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
 import { addPackage } from '../commands/add.js';
 import importCommand from '../commands/import.js';
 import cleanCommand from '../commands/clean.js';
@@ -11,10 +12,14 @@ import bundleCommand from '../commands/bundle.js';
 
 const program = new Command();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const pkg = JSON.parse(readFileSync(path.join(__dirname, '../package.json'), 'utf8'));
+
 program
-  .name('theme-tools')
-  .description(chalk.cyan('Shopify Theme Tools CLI'))
-  .version('1.0.0');
+  .name('stpm')
+  .description('Shopify Theme Package Manager (stpm)')
+  .version(pkg.version);
 
 program
   .command('add')

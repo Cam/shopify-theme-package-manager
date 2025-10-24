@@ -1,4 +1,4 @@
-# 🛠️ Shopify Theme Tools (CLI)
+# 🛠️ Shopify Theme Package Manager (stpm)
 
 A CLI utility for importing files from NPM packages directly into your Shopify theme folders. Designed for modular theme development using reusable snippets, sections, templates, and assets — with a streamlined, declarative workflow.
 
@@ -6,12 +6,12 @@ A CLI utility for importing files from NPM packages directly into your Shopify t
 
 ## 🚀 Features
 
-- Installs and imports packages in one step with `theme-tools add`
+- Installs and imports packages in one step with `stpm add`
 - Imports `.liquid`, `.js`, `.css`, `.svg`, `.png`, `.jpg`, `.json` from installed packages
 - Routes `.liquid` files based on `{% doc %}` tags (`@snippet`, `@section`, etc.)
 - Copies other files to `assets/`
 - Skips unchanged files using smart caching
-- Tracks imports in `.theme-tools-imports.json`
+- Tracks imports in `.stpm-imports.json`
 - Warns on filename conflicts (e.g. duplicate `style.css`)
 - CLI-first workflow with scoped resolution from your theme folder
 
@@ -22,13 +22,13 @@ A CLI utility for importing files from NPM packages directly into your Shopify t
 From your Shopify theme folder:
 
 ```bash
-npm install @cam/shopify-theme-tools
+npm install @cam/shopify-stpm
 ```
 
 Then run the CLI directly:
 
 ```bash
-npx theme-tools add @cam/menu
+npx stpm add @cam/menu
 ```
 
 ---
@@ -38,37 +38,37 @@ npx theme-tools add @cam/menu
 Install and import one or more packages:
 
 ```bash
-theme-tools add @cam/menu @cam/gallery @cam/footer
+stpm add @cam/menu @cam/gallery @cam/footer
 ```
 
 Re-import files from a package (without reinstalling):
 
 ```bash
-theme-tools import @cam/menu
+stpm import @cam/menu
 ```
 
 Force re-import (clears cache):
 
 ```bash
-theme-tools import --force @cam/menu
+stpm import --force @cam/menu
 ```
 
 Remove imported files from a package:
 
 ```bash
-theme-tools clean @cam/menu
+stpm clean @cam/menu
 ```
 
 Remove all imported files:
 
 ```bash
-theme-tools clean-all
+stpm clean-all
 ```
 
 Show help:
 
 ```bash
-theme-tools --help
+stpm --help
 ```
 
 ---
@@ -109,7 +109,7 @@ theme/
 Import tracking is stored in:
 
 ```
-.theme-tools-imports.json
+.stpm-imports.json
 ```
 
 ---
@@ -124,7 +124,7 @@ If two packages include files with the same name (e.g. `style.css`), the second 
 
 ## 🧪 Compatible Packages
 
-To create packages that work with this importer, follow the [Theme-Compatible Package Authoring Spec](https://github.com/your-org/shopify-theme-tools/blob/main/PACKAGE_AUTHORING.md).
+To create packages that work with this importer, follow the [Theme-Compatible Package Authoring Spec](https://github.com/your-org/shopify-stpm/blob/main/PACKAGE_AUTHORING.md).
 
 ---
 

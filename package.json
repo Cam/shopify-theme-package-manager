@@ -1,13 +1,13 @@
 {
-  "name": "@cam/shopify-theme-tools",
-  "version": "1.0.10",
+  "name": "stpm",
+  "version": "1.0.0",
   "description": "CLI and importer for syncing NPM packages into Shopify themes",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cam/shopify-theme-tools.git"
+    "url": "https://github.com/cam/stpm.git"
   },
   "bin": {
-    "theme-tools": "./bin/cli.js"
+    "stpm": "./bin/cli.js"
   },
   "type": "module",
   "scripts": {

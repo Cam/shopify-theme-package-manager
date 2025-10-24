@@ -4,7 +4,7 @@ import { deleteFiles } from '../lib/fileOps.js';
 import fs from 'fs';
 
 export default async function cleanAllCommand() {
-  console.log(chalk.magenta(`[theme-tools] Cleaning all uninstalled packages...`));
+  console.log(chalk.magenta(`[stpm] Cleaning all uninstalled packages...`));
 
   const manifest = await getManifest();
   const installed = Object.keys(JSON.parse(fs.readFileSync('package.json')).dependencies || {});
