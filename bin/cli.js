@@ -1,54 +1,44 @@
 #!/usr/bin/env node
-
 import { Command } from 'commander';
-import { readFileSync } from 'fs';
-import { fileURLToPath } from 'url';
+import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { addPackage } from '../commands/add.js';
-import importCommand from '../commands/import.js';
-import removeCommand from '../commands/remove.js';
-import cleanAllCommand from '../commands/cleanAll.js';
-import bundleCommand from '../commands/bundle.js';
+import { compileAssetsCommand } from '../commands/compile-assets.js';
+import { buildCommand } from '../commands/build.js';
+import { removeCommand } from '../commands/remove.js';
 
-const program = new Command();
-
+// Determine current version from package.json
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const pkg = JSON.parse(readFileSync(path.join(__dirname, '../package.json'), 'utf8'));
+const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8'));
+
+// Setup CLI commands
+const program = new Command();
 
 program
   .name('stpm')
-  .description('Shopify Theme Package Manager (stpm)')
+  .description('Shopify Theme Package Manager')
   .version(pkg.version);
 
 program
-  .command('add')
-  .argument('<packages...>')
-  .description('Install and import one or more theme-compatible packages')
-  .action(async (packages) => {
-    for (const pkg of packages) {
-      await addPackage(pkg);
-    }
-  });
+  .command('add <package>')
+  .description('Install and import a STPM-native package')
+  .action(addPackage);
 
 program
-  .command('import <package>')
-  .description('Import files from a theme package')
-  .action(importCommand);
+  .command('compile-assets')
+  .description('Compile JS/CSS from declared entry points')
+  .action(compileAssetsCommand);
+
+program
+  .command('build')
+  .description('Run full theme build')
+  .action(buildCommand);
 
 program
   .command('remove <package>')
-  .description('Remove imported files and uninstall the package')
+  .description('Remove imported files, schema blocks, and uninstall package')
   .action(removeCommand);
-
-program
-  .command('clean-all')
-  .description('Remove files from all uninstalled packages')
-  .action(cleanAllCommand);
-
-program
-  .command('bundle')
-  .description('Compile global JS/CSS from selected packages')
-  .action(bundleCommand);
 
 program.parse(process.argv);

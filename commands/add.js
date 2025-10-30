@@ -1,6 +1,6 @@
-import { execSync } from 'child_process';
 import chalk from 'chalk';
-import { importAndTrack } from '../lib/importAndTrack.js';
+import { execSync } from 'child_process';
+import { importPackage } from '../lib/importPackage.js';
 
 export async function addPackage(pkgName) {
   console.log(chalk.cyan(`[stpm] Installing ${pkgName}...`));
@@ -14,6 +14,5 @@ export async function addPackage(pkgName) {
   }
 
   console.log(chalk.cyan(`[stpm] Importing files from ${pkgName}...`));
-  // Import files and update manifest after install
-  await importAndTrack(pkgName);
+  await importPackage(pkgName);
 }
