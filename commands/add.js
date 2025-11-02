@@ -3,9 +3,11 @@ import { execSync } from 'child_process';
 import path from 'path';
 import fs from 'fs-extra';
 import inquirer from 'inquirer';
-import { importPackage } from '../lib/importPackage.js';
+import { importNativePackage } from '../lib/importNativePackage.js';
 import { importBundledPackage } from '../lib/importBundledPackage.js';
-import { detectStpmNative } from '../lib/utils.js';
+import { detectStpmNative } from '../lib/detectStpmNative.js';
+import { warnIfSTPMLike } from '../lib/warnIfSTPMLike.js';
+import { validateSTPM } from '../lib/validateSTPM.js';
 
 export async function addPackage(pkgName) {
   const manifestPath = path.join(process.cwd(), '.stpm-imports.json');
@@ -19,8 +21,7 @@ export async function addPackage(pkgName) {
         message: `${pkgName} is already imported. What would you like to do?`,
         choices: [
           { name: 'Skip re-import', value: 'skip' },
-          { name: 'Re-import and overwrite previous content', value: 'overwrite' },
-          { name: 'Remove and re-add cleanly', value: 'reset' }
+          { name: 'Remove and re-add (clean import)', value: 'reset' }
         ]
       }
     ]);
@@ -30,10 +31,8 @@ export async function addPackage(pkgName) {
       return;
     }
 
-    if (action === 'reset') {
-      const { removePackage } = await import('../lib/removePackage.js');
-      await removePackage(pkgName);
-    }
+    const { removePackage } = await import('../lib/removePackage.js');
+    await removePackage(pkgName);
   }
 
   console.log(chalk.cyan(`[stpm] Installing ${pkgName}...`));
@@ -52,8 +51,18 @@ export async function addPackage(pkgName) {
   console.log(chalk.cyan(`[stpm] Detected ${pkgName} as ${isStpmNative ? 'STPM-native' : 'standard NPM module'}`));
 
   if (isStpmNative) {
-    await importPackage(pkgName);
-  } else {
-    await importBundledPackage(pkgName);
+    try {
+      await validateSTPM(pkgRoot);
+      await importNativePackage(pkgName);
+    } catch (err) {
+      console.log(chalk.red(`[stpm] ${pkgName} is marked as STPM-native but failed validation.`));
+      console.log(chalk.gray(`Details: ${err.message}`));
+      console.log(chalk.yellow(`[stpm] Falling back to bundled import.`));
+      await importBundledPackage(pkgName);
+    }
+  }
+
+  if (!isStpmNative) {
+    await warnIfSTPMLike(pkgRoot, pkgName);
   }
 }
