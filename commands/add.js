@@ -10,7 +10,7 @@ import { warnIfSTPMLike } from '../lib/warnIfSTPMLike.js';
 import { validateSTPM } from '../lib/validateSTPM.js';
 
 export async function addPackage(pkgName) {
-  const manifestPath = path.join(process.cwd(), '.stpm-imports.json');
+  const manifestPath = path.join(process.cwd(), '.stpm-packages.json');
   const manifest = (await fs.pathExists(manifestPath)) ? await fs.readJson(manifestPath) : {};
 
   if (manifest[pkgName]) {

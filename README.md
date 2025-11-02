@@ -10,7 +10,7 @@ A CLI tool for importing, bundling, and managing modular packages in Shopify the
 - Bundles standard NPM packages (CSS/JS) into `assets/` using PostCSS + esbuild
 - Prompts for output filenames with smart defaults (`theme.css`, `theme.js`)
 - Prevents duplicate imports with overwrite/reset options
-- Tracks imports in `.stpm-imports.json` for clean removal
+- Tracks imports in `.stpm-packages.json` for clean removal
 
 ---
 

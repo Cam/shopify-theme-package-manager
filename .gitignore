@@ -16,7 +16,7 @@ dist/
 *.tgz
 
 # CLI test output
-.theme-tools-imports.json
+.stpm-packages.json
 
 # Local dev links
 *.log
