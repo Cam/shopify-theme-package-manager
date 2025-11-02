@@ -1,8 +1,6 @@
-import chalk from 'chalk';
-import { compileAssets } from '../lib/compileAssets.js';
+import { buildPackages } from '../lib/buildPackages.js';
 
-export async function buildCommand() {
-  console.log(chalk.cyan(`[stpm] Running full build...`));
-  await compileAssets();
-  // Future: run other build steps here
+export async function buildCommand(pkgName) {
+  console.log(`[stpm] Building...`);
+  await buildPackages(pkgName);
 }

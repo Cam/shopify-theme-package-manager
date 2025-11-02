@@ -19,7 +19,7 @@ A CLI tool for importing, bundling, and managing modular packages in Shopify the
 From your Shopify theme folder:
 
 ```bash
-npm install @cam/stpm
+npm install @cam/stpm --save-dev
 ```
 
 ---

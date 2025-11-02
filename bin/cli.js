@@ -3,10 +3,11 @@ import { Command } from 'commander';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { addPackage } from '../commands/add.js';
-import { compileAssetsCommand } from '../commands/compile-assets.js';
+import { addCommand } from '../commands/add.js';
 import { buildCommand } from '../commands/build.js';
 import { removeCommand } from '../commands/remove.js';
+import { updateCommand } from '../commands/update.js';
+import { cleanCommand } from '../commands/clean.js';
 
 // Determine current version from package.json
 const __filename = fileURLToPath(import.meta.url);
@@ -24,12 +25,7 @@ program
 program
   .command('add <package>')
   .description('Install and import a STPM-native package')
-  .action(addPackage);
-
-program
-  .command('compile-assets')
-  .description('Compile JS/CSS from declared entry points')
-  .action(compileAssetsCommand);
+  .action(addCommand);
 
 program
   .command('build')
@@ -37,8 +33,18 @@ program
   .action(buildCommand);
 
 program
+  .command('update <pkgName>')
+  .description('Update an imported package and re-apply its STPM blocks')
+  .action(updateCommand);
+
+program
   .command('remove <package>')
   .description('Remove imported files, schema blocks, and uninstall package')
   .action(removeCommand);
+
+program
+  .command('clean')
+  .description('Remove all STPM blocks from compiled assets and warn about duplicates')
+  .action(cleanCommand);
 
 program.parse(process.argv);
