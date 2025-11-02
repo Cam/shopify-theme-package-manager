@@ -26,22 +26,38 @@ npm install @cam/stpm --save-dev
 
 ## 🛠️ CLI Usage
 
-Install a package:
+### Install a package
 
 ```bash
 stpm add @cam/css-reset
 ```
 
-Remove a package:
+### Remove a package
 
 ```bash
 stpm remove @cam/css-reset
 ```
 
-Show help:
+### Show help
 
 ```bash
 stpm --help
+```
+
+###  Clean
+
+Removes all duplicate STPM blocks from compiled assets (e.g. `theme.css`, `theme.js`) and normalizes spacing. Useful for resetting your build environment before testing updates.
+
+```bash
+stpm clean
+```
+
+### Update a package
+
+Updates an imported package, re-imports it using existing manifest data, and ensures compiled files are refreshed without duplication.
+
+```bash
+stpm update <package>
 ```
 
 ---
