@@ -1,4 +1,4 @@
-# 🛠️ Shopify Theme Package Manager (stpm)
+# 🛠️ Shopify Theme Package Manager (STPM)
 
 A CLI tool for importing, bundling, and managing modular packages in Shopify themes.
 

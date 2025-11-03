@@ -1,6 +1,7 @@
 import { addPackage } from '../lib/addPackage.js';
+import { log } from '../lib/logger.js';
 
 export async function addCommand(pkgName) {
-  console.log(`[stpm] Adding ${pkgName}...`);
+  log(`Adding ${pkgName}...`); 
   await addPackage(pkgName);
 }

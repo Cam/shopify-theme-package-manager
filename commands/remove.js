@@ -1,6 +1,7 @@
 import { removePackage } from '../lib/removePackage.js';
+import { log } from '../lib/logger.js';
 
 export async function removeCommand(pkgName) {
-  console.log(`[stpm] Removing ${pkgName}...`);
+  log(`Removing ${pkgName}...`); 
   await removePackage(pkgName);
 }

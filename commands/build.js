@@ -1,6 +1,7 @@
 import { buildPackages } from '../lib/buildPackages.js';
+import { log } from '../lib/logger.js';
 
 export async function buildCommand(pkgName) {
-  console.log(`[stpm] Building...`);
+  log(`Building...`); 
   await buildPackages(pkgName);
 }
